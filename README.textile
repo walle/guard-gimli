@@ -30,7 +30,7 @@ end
 
 h2. Options
 
-LiveReload guard have 1 option that you can set like this:
+gimli guard have 1 option that you can set like this:
 
 bc. guard 'gimli', :outputdir => 'build' do
   ...
