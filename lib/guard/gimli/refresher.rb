@@ -10,7 +10,7 @@ module Guard
         UI.info "Building pdfs for #{paths.join(' ')}"
         start_at = Time.now
         paths.each do |path|
-          escaped_path = path.gsub(' ', '\ ')
+          escaped_path = escape path
           command = " -f #{escaped_path}"
           command += @outputdir.nil? ? '' : " -o #{@outputdir}"
           system("gimli#{command}")
@@ -19,6 +19,10 @@ module Guard
 
       def base_dir(path)
         File.dirname path
+      end
+
+      def escape(path)
+        path.gsub(' ', '\ ')
       end
     end
   end

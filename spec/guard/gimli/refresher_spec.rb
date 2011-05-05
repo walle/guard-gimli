@@ -21,6 +21,16 @@ describe Guard::Gimli::Refresher do
       path = 'foo.textile'
       refresher.base_dir(path).should == '.'
     end
+
+    it "should escape spaces in paths with \ " do
+      refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+
+      path = 'foo/bar.textile'
+      refresher.escape(path).should == 'foo/bar.textile'
+
+      path = 'foo bar/baz.textile'
+      refresher.escape(path).should == 'foo\ bar/baz.textile'
+    end
   end
 
 end
