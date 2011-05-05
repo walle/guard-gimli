@@ -12,12 +12,15 @@ describe Guard::Gimli::Refresher do
       refresher.reload(paths)
     end
 
-    #it "should use file location as base for the call to gimli" do
-    #  refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
-    #  path = 'foo/bar.textile'
-    #  mock(File).new(path).mock!.path { path }
-    #  refresher.base_dir(path).should == 'foo'
-   # end
+    it "should use file location as base for the call to gimli" do
+      refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+
+      path = 'foo/bar.textile'
+      refresher.base_dir(path).should == 'foo'
+
+      path = 'foo.textile'
+      refresher.base_dir(path).should == '.'
+    end
   end
 
 end

@@ -17,9 +17,9 @@ module Guard
         end
       end
 
-      #def base_dir(path)
-      #  File.basename(File.new(path).path)
-      #end
+      def base_dir(path)
+        File.dirname path
+      end
     end
   end
 end
