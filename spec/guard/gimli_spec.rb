@@ -20,22 +20,22 @@ describe Guard::Gimli do
   describe "#start" do
     it "creates refresher with default options" do
       subject = Guard::Gimli.new([])
-      Guard::Gimli::Refresher.should_receive(:new).with(:outputdir => nil)
+      mock(Guard::Gimli::Refresher).new(:outputdir => nil)
       subject.start
     end
 
     it "creates reactor with given options" do
       subject = Guard::Gimli.new([], { :outputdir => 'build' })
-      Guard::Gimli::Refresher.should_receive(:new).with(:outputdir => 'build')
+      mock(Guard::Gimli::Refresher).new(:outputdir => 'build')
       subject.start
     end
   end
 
   describe "#run_on_change" do
     it "converts pdfs" do
-      refresher = mock(Guard::Gimli::Refresher)
-      subject.stub(:refresher).and_return(refresher)
-      refresher.should_receive(:reload).with(['foo'])
+      refresher = Guard::Gimli::Refresher.new({})
+      mock(subject).refresher { refresher }
+      mock(refresher).reload(['foo'])
       subject.run_on_change(['foo'])
     end
   end

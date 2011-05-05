@@ -16,6 +16,10 @@ module Guard
           system("gimli#{command}")
         end
       end
+
+      #def base_dir(path)
+      #  File.basename(File.new(path).path)
+      #end
     end
   end
 end

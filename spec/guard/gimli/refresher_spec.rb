@@ -5,12 +5,19 @@ describe Guard::Gimli::Refresher do
 
   describe "#reload(paths = [])" do
     it "displays a message" do
-      Guard::UI.should_receive(:info).with("Building pdfs for #{paths.join(' ')}")
+      mock(Guard::UI).info("Building pdfs for #{paths.join(' ')}")
       refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
-      refresher.should_receive("system").with("gimli -f foo/bar.textile")
-      refresher.should_receive("system").with("gimli -f readme.markdown")
+      mock(refresher).system("gimli -f foo/bar.textile") { true }
+      mock(refresher).system("gimli -f readme.markdown") { true }
       refresher.reload(paths)
     end
+
+    #it "should use file location as base for the call to gimli" do
+    #  refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+    #  path = 'foo/bar.textile'
+    #  mock(File).new(path).mock!.path { path }
+    #  refresher.base_dir(path).should == 'foo'
+   # end
   end
 
 end
