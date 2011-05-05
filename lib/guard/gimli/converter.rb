@@ -1,6 +1,6 @@
 module Guard
   class Gimli
-    class Refresher
+    class Converter
 
       def initialize(options)
         @outputdir = options[:outputdir]
