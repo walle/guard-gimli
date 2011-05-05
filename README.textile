@@ -1,0 +1,43 @@
+h1. guard-gimli
+
+gimli guard allows to automatically convert your files when markup is changed
+
+h2. Install
+
+Please be sure to have {Guard}[http://github.com/guard/guard] installed before continue.
+
+Install the gem:
+
+    gem install guard-gimli
+
+Add guard definition to your Guardfile by running this command:
+
+    guard init gimli
+
+h2. Usage
+
+Please read {Guard usage doc}[http://github.com/guard/guard#readme] and {gimli usage doc}[http://github.com/walle/gimli#readme]
+
+h2. Guardfile
+
+You can adapt your markup files like you want.
+Please read {Guard doc}[http://github.com/guard/guard#readme] for more info about Guardfile DSL.
+
+    guard 'gimli' do
+      watch(%r{.+\.(md|mkdn?|mdown|markdown|textile|rdoc|org|creole|re?st(\.txt)?|a
+    end
+
+h2. Options
+
+LiveReload guard have 1 option that you can set like this:
+
+    guard 'gimli', :outputdir => 'build' do
+      ...
+    end
+
+Available options:
+
+    :outputdir => 'build'    # default nil ie. working dir
+
+See {gimli doc}[http://github.com/walle/gimli#readme] for more info.
+

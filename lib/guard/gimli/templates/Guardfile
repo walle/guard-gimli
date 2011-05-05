@@ -1,0 +1,4 @@
+guard 'gimli' do
+  watch(%r{.+\.(md|mkdn?|mdown|markdown|textile|rdoc|org|creole|re?st(\.txt)?|asciidoc|pod|\d|(media)?wiki)})
+end
+

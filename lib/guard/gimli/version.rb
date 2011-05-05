@@ -1,0 +1,6 @@
+module Guard
+  module GimliVersion
+    VERSION = "0.1.0"
+  end
+end
+
