@@ -11,7 +11,7 @@ module Guard
         start_at = Time.now
         paths.each do |path|
           system("gimli#{command(path)}")
-          UI.info "Output => #{outputinfo(path)}"
+          UI.info "#{outputinfo(path)} built"
         end
       end
 

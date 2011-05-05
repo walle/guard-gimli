@@ -6,8 +6,8 @@ describe Guard::Gimli::Converter do
   describe "#reload(paths = [])" do
     it "displays a message" do
       mock(Guard::UI).info("Building pdfs for #{paths.join(' ')}")
-      mock(Guard::UI).info("Output => foo/bar.pdf")
-      mock(Guard::UI).info("Output => readme.pdf")
+      mock(Guard::UI).info("foo/bar.pdf built")
+      mock(Guard::UI).info("readme.pdf built")
       refresher = Guard::Gimli::Converter.new({ :outputdir => nil })
       mock(refresher).system("gimli -f foo/bar.textile -o foo") { true }
       mock(refresher).system("gimli -f readme.markdown") { true }
