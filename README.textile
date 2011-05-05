@@ -24,7 +24,7 @@ You can adapt your markup files like you want.
 Please read {Guard doc}[http://github.com/guard/guard#readme] for more info about Guardfile DSL.
 
     guard 'gimli' do
-      watch(%r{.+\.(md|mkdn?|mdown|markdown|textile|rdoc|org|creole|re?st(\.txt)?|a
+      watch(%r{.+\.(md|mkdn?|mdown|markdown|textile|rdoc|org|creole|re?st(\.txt)?|asciidoc|pod|\d|(media)?wiki)})
     end
 
 h2. Options
