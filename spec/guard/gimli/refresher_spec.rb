@@ -7,7 +7,7 @@ describe Guard::Gimli::Refresher do
     it "displays a message" do
       mock(Guard::UI).info("Building pdfs for #{paths.join(' ')}")
       refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
-      mock(refresher).system("gimli -f foo/bar.textile") { true }
+      mock(refresher).system("gimli -f foo/bar.textile -o foo") { true }
       mock(refresher).system("gimli -f readme.markdown") { true }
       refresher.reload(paths)
     end
@@ -41,6 +41,20 @@ describe Guard::Gimli::Refresher do
 
     refresher = Guard::Gimli::Refresher.new({ :outputdir => 'build' })
     refresher.outputdir(path).should == 'foo/build'
+  end
+
+  it "should give the correct command" do
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+
+    path = 'foo/bar.textile'
+    refresher.command(path).should == " -f #{path} -o foo"
+
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => 'build' })
+    path = 'foo.textile'
+    refresher.command(path).should == " -f #{path} -o build"
+
+    path = 'bar/foo.textile'
+    refresher.command(path).should == " -f #{path} -o bar/build"
   end
 
 end

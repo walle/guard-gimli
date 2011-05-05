@@ -10,18 +10,24 @@ module Guard
         UI.info "Building pdfs for #{paths.join(' ')}"
         start_at = Time.now
         paths.each do |path|
-          escaped_path = escape path
-          command = " -f #{escaped_path}"
-          command += @outputdir.nil? ? '' : " -o #{outputdir}"
-          system("gimli#{command}")
+          system("gimli#{command(path)}")
         end
+      end
+
+      def command(path)
+        command = " -f #{escape(path)}"
+        command += outputdir(escape(path)).nil? ? '' : " -o #{outputdir(escape(path))}"
       end
 
       def outputdir(path)
         if @outputdir.nil?
           base_dir path
         else
-          File.join base_dir(path), @outputdir
+          if base_dir(path).nil?
+            @outputdir
+          else
+            File.join(base_dir(path), @outputdir)
+          end
         end
       end
 
