@@ -7,12 +7,14 @@ module Guard
       end
 
       def reload(paths = [])
-        UI.info "Building pdfs"
+        UI.info "Building pdfs for #{paths.join(' ')}"
         start_at = Time.now
-        result = ''
-        command = @outputdir.nil? ? '' : "-o #{@outputdir}"
-        result = system("gimli #{command}]")
-        result
+        paths.each do |path|
+          escaped_path = path.gsub(' ', '\ ')
+          command = " -f #{escaped_path}"
+          command += @outputdir.nil? ? '' : " -o #{@outputdir}"
+          system("gimli#{command}")
+        end
       end
     end
   end
