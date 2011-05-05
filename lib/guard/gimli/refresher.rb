@@ -11,6 +11,7 @@ module Guard
         start_at = Time.now
         paths.each do |path|
           system("gimli#{command(path)}")
+          UI.info "Output => #{outputinfo(path)}"
         end
       end
 
@@ -29,6 +30,16 @@ module Guard
             File.join(base_dir(path), @outputdir)
           end
         end
+      end
+
+      def outputinfo(path)
+        info = outputdir(path)
+        info += '/' unless info.nil?
+        info = info.to_s + "#{filename(path)}.pdf"
+      end
+
+      def filename(path)
+        File.basename(path).gsub(/\..+$/, '')
       end
 
       def base_dir(path)
