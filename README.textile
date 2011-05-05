@@ -1,5 +1,7 @@
 h1. guard-gimli
 
+"!http://travis-ci.org/walle/guard-gimli.png!":http://travis-ci.org/walle/guard-gimli
+
 gimli guard allows to automatically convert your files when markup is changed
 
 h2. Install
