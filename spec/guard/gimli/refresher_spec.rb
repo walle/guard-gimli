@@ -11,26 +11,36 @@ describe Guard::Gimli::Refresher do
       mock(refresher).system("gimli -f readme.markdown") { true }
       refresher.reload(paths)
     end
+  end
 
-    it "should use file location as base for the call to gimli" do
-      refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+  it "should use file location as base for the call to gimli" do
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
 
-      path = 'foo/bar.textile'
-      refresher.base_dir(path).should == 'foo'
+    path = 'foo/bar.textile'
+    refresher.base_dir(path).should == 'foo'
 
-      path = 'foo.textile'
-      refresher.base_dir(path).should == '.'
-    end
+    path = 'foo.textile'
+    refresher.base_dir(path).should be_nil
+  end
 
-    it "should escape spaces in paths with \ " do
-      refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+  it "should escape spaces in paths with \ " do
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
 
-      path = 'foo/bar.textile'
-      refresher.escape(path).should == 'foo/bar.textile'
+    path = 'foo/bar.textile'
+    refresher.escape(path).should == 'foo/bar.textile'
 
-      path = 'foo bar/baz.textile'
-      refresher.escape(path).should == 'foo\ bar/baz.textile'
-    end
+    path = 'foo bar/baz.textile'
+    refresher.escape(path).should == 'foo\ bar/baz.textile'
+  end
+
+  it "should give the correct output dir" do
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => nil })
+
+    path = 'foo/bar.textile'
+    refresher.outputdir(path).should == 'foo'
+
+    refresher = Guard::Gimli::Refresher.new({ :outputdir => 'build' })
+    refresher.outputdir(path).should == 'foo/build'
   end
 
 end

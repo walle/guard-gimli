@@ -12,13 +12,22 @@ module Guard
         paths.each do |path|
           escaped_path = escape path
           command = " -f #{escaped_path}"
-          command += @outputdir.nil? ? '' : " -o #{@outputdir}"
+          command += @outputdir.nil? ? '' : " -o #{outputdir}"
           system("gimli#{command}")
         end
       end
 
+      def outputdir(path)
+        if @outputdir.nil?
+          base_dir path
+        else
+          File.join base_dir(path), @outputdir
+        end
+      end
+
       def base_dir(path)
-        File.dirname path
+        dir = File.dirname path
+        dir unless dir == '.'
       end
 
       def escape(path)
