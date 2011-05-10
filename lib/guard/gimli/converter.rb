@@ -2,8 +2,11 @@ module Guard
   class Gimli
     class Converter
 
+      attr_reader :stylesheet
+
       def initialize(options)
         @outputdir = options[:outputdir]
+        @stylesheet = options[:stylesheet]
       end
 
       def reload(paths = [])
@@ -18,6 +21,7 @@ module Guard
       def command(path)
         command = " -f #{escape(path)}"
         command += outputdir(escape(path)).nil? ? '' : " -o #{outputdir(escape(path))}"
+        command += stylesheet.nil? ? '' : " -s #{stylesheet}"
       end
 
       def outputdir(path)

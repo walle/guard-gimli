@@ -58,11 +58,33 @@ describe Guard::Gimli::Converter do
     refresher.outputinfo(path).should == 'foo/build/bar.pdf'
   end
 
+  it 'should give the correct stylesheet' do
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => nil })
+    refresher.stylesheet.should be_nil
+
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => 'style.css' })
+    refresher.stylesheet.should == 'style.css'
+
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => 'css/style.css' })
+    refresher.stylesheet.should == 'css/style.css'
+
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => '/home/walle/gimli/style.css' })
+    refresher.stylesheet.should == '/home/walle/gimli/style.css'
+  end
+
   it "should give the correct command" do
     refresher = Guard::Gimli::Converter.new({ :outputdir => nil })
 
     path = 'foo/bar.textile'
     refresher.command(path).should == " -f #{path} -o foo"
+
+    style = 'style.css'
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => style })
+    refresher.command(path).should == " -f #{path} -o foo -s #{style}"
+
+    style = 'css/style.css'
+    refresher = Guard::Gimli::Converter.new({ :stylesheet => style })
+    refresher.command(path).should == " -f #{path} -o foo -s #{style}"
 
     refresher = Guard::Gimli::Converter.new({ :outputdir => 'build' })
     path = 'foo.textile'
@@ -70,6 +92,10 @@ describe Guard::Gimli::Converter do
 
     path = 'bar/foo.textile'
     refresher.command(path).should == " -f #{path} -o bar/build"
+
+    style = 'css/style.css'
+    refresher = Guard::Gimli::Converter.new({ :outputdir => 'build', :stylesheet => style })
+    refresher.command(path).should == " -f #{path} -o bar/build -s #{style}"
   end
 
 end
