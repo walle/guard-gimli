@@ -11,7 +11,8 @@ module Guard
     def initialize(watchers = [], options = {})
       super
       @options = {
-        :outputdir => nil
+        :outputdir => nil,
+        :stylesheet => nil
       }.update(options)
     end
 

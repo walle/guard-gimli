@@ -15,18 +15,41 @@ describe Guard::Gimli do
         subject.options[:outputdir].should == 'build'
       end
     end
+    describe ":stylesheet" do
+      it "is nil by default" do
+        subject = Guard::Gimli.new([])
+        subject.options[:stylesheet].should be_nil
+      end
+
+      it "can be set " do
+        subject = Guard::Gimli.new([], { :stylesheet => 'style.css' })
+        subject.options[:stylesheet].should == 'style.css'
+      end
+    end
   end
 
   describe "#start" do
     it "creates refresher with default options" do
       subject = Guard::Gimli.new([])
-      mock(Guard::Gimli::Converter).new(:outputdir => nil)
+      mock(Guard::Gimli::Converter).new(:outputdir => nil, :stylesheet => nil)
       subject.start
     end
 
-    it "creates reactor with given options" do
+    it "creates reactor with outputdir" do
       subject = Guard::Gimli.new([], { :outputdir => 'build' })
-      mock(Guard::Gimli::Converter).new(:outputdir => 'build')
+      mock(Guard::Gimli::Converter).new(:outputdir => 'build', :stylesheet => nil)
+      subject.start
+    end
+
+    it "creates reactor with stylesheet" do
+      subject = Guard::Gimli.new([], { :stylesheet => 'style.css' })
+      mock(Guard::Gimli::Converter).new(:stylesheet => 'style.css', :outputdir => nil)
+      subject.start
+    end
+
+    it "creates reactor with outputdir and stylesheet" do
+      subject = Guard::Gimli.new([], { :outputdir => 'build', :stylesheet => 'style.css' })
+      mock(Guard::Gimli::Converter).new(:outputdir => 'build', :stylesheet => 'style.css')
       subject.start
     end
   end
