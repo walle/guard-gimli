@@ -76,26 +76,26 @@ describe Guard::Gimli::Converter do
     refresher = Guard::Gimli::Converter.new({ :outputdir => nil })
 
     path = 'foo/bar.textile'
-    refresher.command(path).should == " -f #{path} -o foo"
+    refresher.command(path).should == "gimli -f #{path} -o foo"
 
     style = 'style.css'
     refresher = Guard::Gimli::Converter.new({ :stylesheet => style })
-    refresher.command(path).should == " -f #{path} -o foo -s #{style}"
+    refresher.command(path).should == "gimli -f #{path} -o foo -s #{style}"
 
     style = 'css/style.css'
     refresher = Guard::Gimli::Converter.new({ :stylesheet => style })
-    refresher.command(path).should == " -f #{path} -o foo -s #{style}"
+    refresher.command(path).should == "gimli -f #{path} -o foo -s #{style}"
 
     refresher = Guard::Gimli::Converter.new({ :outputdir => 'build' })
     path = 'foo.textile'
-    refresher.command(path).should == " -f #{path} -o build"
+    refresher.command(path).should == "gimli -f #{path} -o build"
 
     path = 'bar/foo.textile'
-    refresher.command(path).should == " -f #{path} -o bar/build"
+    refresher.command(path).should == "gimli -f #{path} -o bar/build"
 
     style = 'css/style.css'
     refresher = Guard::Gimli::Converter.new({ :outputdir => 'build', :stylesheet => style })
-    refresher.command(path).should == " -f #{path} -o bar/build -s #{style}"
+    refresher.command(path).should == "gimli -f #{path} -o bar/build -s #{style}"
   end
 
 end

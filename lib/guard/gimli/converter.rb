@@ -13,13 +13,13 @@ module Guard
         UI.info "Building pdfs for #{paths.join(' ')}"
         start_at = Time.now
         paths.each do |path|
-          system("gimli#{command(path)}")
+          system(command(path))
           UI.info "#{outputinfo(path)} built"
         end
       end
 
       def command(path)
-        command = " -f #{escape(path)}"
+        command = "gimli -f #{escape(path)}"
         command += outputdir(escape(path)).nil? ? '' : " -o #{outputdir(escape(path))}"
         command += stylesheet.nil? ? '' : " -s #{stylesheet}"
       end
