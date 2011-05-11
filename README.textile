@@ -32,15 +32,16 @@ end
 
 h2. Options
 
-gimli guard have 1 option that you can set like this:
+gimli guard have two options that you can set like this:
 
-bc. guard 'gimli', :outputdir => 'build' do
+bc. guard 'gimli', :outputdir => 'build', :stylesheet => 'style.css' do
   ...
 end
 
 Available options:
 
 bc. :outputdir => 'build'    # default nil ie. directory of file
+:stylesheet => 'style.css'    # default nil ie. only the standard css
 
 See "gimli doc":http://github.com/walle/gimli#readme for more info.
 
